@@ -2815,7 +2815,6 @@ rules:
 | shinobu kochou | 蝴蝶忍 | 鬼杀队中的虫柱，鬼杀队医疗设施“蝶屋”的主人。精通药学与毒理学，擅长毒杀。因为力气很小，是柱中唯一一个无法斩下鬼头的剑士，但善于制作毒素来弥补力量的不足。除此之外还经营名为“蝶屋”的医疗设施，负责治疗受重伤的队员 |  |
 | giyuu tomioka | 富冈义勇 | 使用「水之呼吸」的水柱 |  |
 | mitsuri kanroji | 甘露寺蜜璃 | 使用的恋之呼吸 |  |
-| kanzaki aoi | 神崎葵 | 鬼杀队员。于蝴蝶屋帮助负伤的队员们治疗，执行训练指挥的女子。<br>十分能干，从做饭洗衣到煎药修理，几乎包办了蝴蝶屋内的一切内务和杂项。与胡蝶忍的继子栗花落香奈乎关系很好。 |  |
 | zenitsu agatsuma | 我妻善逸 | 使用雷之呼吸 |  |
 | tanjirou kamado | 灶门炭治郎 | 灶门家长子，造型为制服上披着市松图案的羽织，有着一头深红发与红色眼睛的“赫灼之子”（从事火仕职业家庭的孩子）。左额上有着小时候为了保护弟弟，而被滚烫的水壶烧伤的大片伤痕。 |  |
 | kyoujurou rengoku | 炼狱杏寿郎 | "炎柱"炼狱杏寿郎生来便拥有超过于常人的力量 |  |
@@ -2823,7 +2822,7 @@ rules:
 | aoi kanzaki | 神崎葵 | 鬼杀队员。于蝴蝶屋帮助负伤的队员们治疗，执行训练指挥的女子。<br>十分能干，从做饭洗衣到煎药修理，几乎包办了蝴蝶屋内的一切内务和杂项。与胡蝶忍的继子栗花落香奈乎关系很好。 |  |
 | sabito | 锖兔 | 鳞泷左近次的弟子，灶门炭治郎的师兄，富冈义勇的同门友人 |  |
 | tengen uzui | 宇髄天元 | 鬼杀队中的音柱, 原忍者，绰号“二刀流的宇髄天元”。头巾上镶有着许多钻珠的男子，眼睛周边涂了许多红色花纹，但卸妆后意外的十分美型。 |  |
-| amano hina | 天野阳菜 | 有着不可思议力量，能让天空放晴的少女。与弟弟凪两人相依为命，手很巧，十分擅长料理和裁缝。某日邂逅了离家出走的森岛帆高，称呼对方为帆高。住所在东京都北区田端。生日是8月22日。<br>![](https://img.moegirl.org/common/thumb/2/2d/晴れ女.jpg/1024px-晴れ女.jpg)<br>![替换文字](https://img.moegirl.org/common/b/b0/Hina_.jpg)<br>![替换文字](https://img.moegirl.org/common/thumb/8/8a/Tenkinoko_visual_2.jpg/1024px-Tenkinoko_visual_2.jpg) |  |
+| amano hina | 天野阳菜 | 有着不可思议力量，能让天空放晴的少女。与弟弟凪两人相依为命，手很巧，十分擅长料理和裁缝。某日邂逅了离家出走的森岛帆高，称呼对方为帆高。住所在东京都北区田端。生日是8月22日。<br>![](https://img.moegirl.org/common/thumb/2/2d/晴れ女.jpg/1024px-晴れ女.jpg)<br>![图](https://img.moegirl.org/common/b/b0/Hina_.jpg)<br>![图](https://img.moegirl.org/common/thumb/8/8a/Tenkinoko_visual_2.jpg/1024px-Tenkinoko_visual_2.jpg) |  |
 | hodaka morishima | 森岛帆高 | 日本离岛的都立神津岛高校，16岁的高中一年生。外人看来有些失控的少年。出门时仅带着一个黄色小包包离家，并携带着《麦田里的守望者》（村上春树译）。杯面习惯泡2分钟就食用。习惯在Yahoo奇摩知识+询问各种问题<br>![](https://img.moegirl.org/common/thumb/7/7e/Morisaki_Hodaka.png/250px-Morisaki_Hodaka.png) |  |
 | chiaki minami | 南千秋 | 南家三姐妹中的三妹，最小的孩子。眼睛半合状态似睡非睡，头上的一大坨呆毛“桃毛みなみけ”相当灵活，但其实很腹黑，自称为“公主”。<br>经常吐槽夏奈、真子和内田是马鹿野郎，而且都是一针见血，思想超越其他小学生。但对南家的大姐---南春香近乎崇拜的感情，称呼春香为“春香姐姐大人”，对喜欢春香的人近乎敌视的态度。<br>![](https://img.moegirl.org/common/thumb/1/14/南千秋.jpg/250px-南千秋.jpg) | [萌娘百科](https://zh.moegirl.org/zh-hans/南千秋) |
 | haruka minami | 南夏奈 | 南家三姐妹中的二姐，长相不错，不说话看起来还是很正常的（各种意义上）。个性就像她的名字一样，有如火热的夏日，有着永远用不完的精力。南家的很多笑点蠢事有一半都是她推动的。经常被妹妹南千秋嫌弃，称之为“马鹿野郎”（笨蛋），虽然嘴上这么说，但有事的话也会找夏奈商量。超级脱线与神经大条，但有时候又看起来很有智慧（？）非常喜欢《二之宫与老师》八点档这部电视剧和兜裆布新闻。放下头发后是个标致的美人。人缘奇好，无论是自己还是春香还是千秋的人际圈都处的非常好。<br>![](https://img.moegirl.org/common/thumb/2/28/南夏奈_.jpg/250px-南夏奈_.jpg) | [萌娘百科](https://zh.moegirl.org/南夏奈) |
@@ -2867,6 +2866,7 @@ rules:
 | gemini sunrise | 洁蜜妮·桑莱兹 | ジェミニ・サンライズ《樱花大战V》的登场角色。 | [FANDOM](https://sakurataisen.fandom.com/wiki/Gemini_Sunrise) |
 | anthy himemiya | 姬宫安茜 | 《少女革命》中的女主角二号，被称为“蔷薇新娘”的少女，凤学园代理理事长凤晓生的妹妹，中等部二年生。![图](https://bkimg.cdn.bcebos.com/pic/80cb39dbb6fd5266bc2f678ea918972bd4073627?x-bce-process=image/resize,m_lfit,w_268,limit_1/format,f_jpg) |  |
 | utena tenjou | 天上欧蒂娜 | 《少女革命》女主角。自小父母双亡，在王子的鼓励下重新振作。因为太过憧憬王子，而下定决心自己也要成为王子，并穿起了男装。运动万能、正义感强，在校园中十分受女学生欢迎，被称为“欧蒂娜大人”（Utena Sama）。因为替好友筱原若叶打抱不平，而被卷入了西园寺荚一及其他决斗者争夺“蔷薇新娘”的决斗游戏中。![图](https://img.moegirl.org/common/thumb/a/a2/Tenjouutena558326c3e0687fc5f92a3b5b3cf40a55.jpg/250px-Tenjouutena558326c3e0687fc5f92a3b5b3cf40a55.jpg) | [萌娘百科]([萌娘百科]%28%29) |
+| akari tsujino | 辻野朱里 | 在2018年9月开放的「群马地区」中作为BOSS初登场，是该区域唯一的新偶像，也是灰姑娘女孩系列（除韩国版）自桐生司之后4年来首次追加的偶像，时间跨度长达1553天。也使得各位普罗丟瑟终于跳出了福井地区4年以来的无限循环。 | [萌娘百科](https://zh.moegirl.org/zh/%E8%BE%BB%E9%87%8E%E6%9C%B1%E9%87%8C) |
 
 <!--TEMPLATE: 
 |  |  |  |  |
