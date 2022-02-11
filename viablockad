@@ -20,4 +20,8 @@ jmcomic3.cc##.speed_btn.btn-primary.btn.center.visible-sm.visible-xs
 jmcomic3.cc##div.col-xs-6.col-sm-3.col-md-3.col-lg-3
 ! 目录页 顶端广告位
 jmcomic3.cc##.top-a2db.c956f9-f_ca
+! 目录页 目录下广告位
+jmcomic3.cc##.row > .c956f9-f_ca
+! 目录页 分享栏
+jmcomic3.cc##div.addthis_inline_share_toolbox
 
