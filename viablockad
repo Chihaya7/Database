@@ -1,38 +1,23 @@
-! 2021-06-29 https://sehuatang.org1
-sehuatang.org##tbody:nth-of-type(32)
-
-! 2021-12-12 https://www.porn5f.com
-www.porn5f.com##.col-md-4 > .row
-www.porn5f.com###mobframe
-||www.porn5f.com/media/videos/tmb2/72800/0.jpg?v=1631604216$image
-www.porn5f.com##.bx-viewport
-www.porn5f.com##.carousel-inner
-
-
-! 2022-01-23 https://jmcomic3.cc
-jmcomic3.cc##.bot-per-times > .fa-times.fas
-jmcomic3.cc##div.row:nth-of-type(6)
-jmcomic3.cc##div.list-col.col-xs-6.col-sm-3.col-md-3.col-lg-3
-
-! 2022-01-24 https://bttzyw69.com
-bttzyw69.com##.top_gz
-bttzyw69.com##.img_left
-
-! 2022-01-25 https://jmcomic3.cc
-jmcomic3.cc##.visible-sm.visible-xs.bot-per
-jmcomic3.cc##div.col-xs-6.col-sm-3.col-md-3.col-lg-3
-jmcomic3.cc##div:nth-of-type(153)
+! 2022-02-11 https://jmcomic3.cc
+!顶端 “禁漫娘已经拜託广告只放头/尾了”
 jmcomic3.cc##.thumb-overlay-albums.row > div:nth-of-type(1)
-jmcomic3.cc##.speed_btn.btn-primary.btn.center.visible-sm.visible-xs
-
-! 2022-02-09 https://jmcomic3.cc
-jmcomic3.cc##.float_left
+!底端 “禁漫娘已经拜託广告只放头/尾了”
+jmcomic3.cc##.thumb-overlay-albums.row > div:nth-last-of-type(1)
+!顶端 广告位
 jmcomic3.cc##.thumb-overlay-albums.row > div:nth-of-type(2)
-jmcomic3.cc##div:nth-of-type(28)
-jmcomic3.cc##.thumb-overlay-albums.row > div:nth-of-type(29)
-jmcomic3.cc##.top-a2db.c9cf92-b_4
+!底端 广告位
+jmcomic3.cc##.thumb-overlay-albums.row > div:nth-last-of-type(2)
+!中间 广告位
+jmcomic3.cc##.thumb-overlay-albums.row > .c956f9-f_ca
+!底端 浮窗:“點我一下 , 免費去廣告”
+jmcomic3.cc##.bot-per
 
-! 2022-02-10 https://jmcomic3.cc
-jmcomic3.cc##.thumb-overlay-albums.row > .ef7e2-fd_1
-jmcomic3.cc##div:nth-of-type(25)
-jmcomic3.cc##div:nth-of-type(26)
+! 左边浮窗
+jmcomic3.cc##.float_left
+! 顶端 “搶先體驗快速線路”
+jmcomic3.cc##.speed_btn.btn-primary.btn.center.visible-sm.visible-xs
+! 页面底端 广告位
+jmcomic3.cc##div.col-xs-6.col-sm-3.col-md-3.col-lg-3
+! 目录页 顶端广告位
+jmcomic3.cc##.top-a2db.c956f9-f_ca
+
