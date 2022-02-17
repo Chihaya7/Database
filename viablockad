@@ -10,8 +10,12 @@ jmcomic3.cc##.thumb-overlay-albums.row > div:nth-of-type(2)
 jmcomic3.cc##.thumb-overlay-albums.row > div:nth-last-of-type(2)
 !中间 广告位
 jmcomic3.cc##.thumb-overlay-albums.row >div:nth-of-type(13)
-!底端 浮窗:“點我一下 , 免費去廣告”
+!底端 浮窗
 jmcomic3.cc##.bot-per
+! :“點我一下 , 免費去廣告”
+jmcomic3.cc##.bot-per-back
+!红叉
+jmcomic3.cc##.bot-per-times
 
 ! 左边浮窗
 jmcomic3.cc##.float_left
