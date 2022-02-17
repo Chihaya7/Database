@@ -9,7 +9,7 @@ jmcomic3.cc##.thumb-overlay-albums.row > div:nth-of-type(2)
 !底端 广告位
 jmcomic3.cc##.thumb-overlay-albums.row > div:nth-last-of-type(2)
 !中间 广告位
-jmcomic3.cc##.thumb-overlay-albums.row > .c956f9-f_ca
+jmcomic3.cc##.thumb-overlay-albums.row >div:nth-of-type(13)
 !底端 浮窗:“點我一下 , 免費去廣告”
 jmcomic3.cc##.bot-per
 
