@@ -1,36 +1,37 @@
 ! Homepage: https://raw.githubusercontent.com/Chihaya7/Database/master/viablockad
 ! 2022-02-11 https://jmcomic3.cc
+！11月19日 18comic.vip
 !顶端 “禁漫娘已经拜託广告只放头/尾了”
-jmcomic3.cc##.thumb-overlay-albums.row > div:nth-of-type(1)
+18comic.vip##.thumb-overlay-albums.row > div:nth-of-type(1)
 !底端 “禁漫娘已经拜託广告只放头/尾了”
-jmcomic3.cc##.thumb-overlay-albums.row > div:nth-last-of-type(1)
+18comic.vip##.thumb-overlay-albums.row > div:nth-last-of-type(1)
 !顶端 广告位
-jmcomic3.cc##.thumb-overlay-albums.row > div:nth-of-type(2)
+18comic.vip##.thumb-overlay-albums.row > div:nth-of-type(2)
 !底端 广告位
-jmcomic3.cc##.thumb-overlay-albums.row > div:nth-last-of-type(2)
+18comic.vip##.thumb-overlay-albums.row > div:nth-last-of-type(2)
 !中间 广告位
-jmcomic3.cc##.thumb-overlay-albums.row >div:nth-of-type(13)
+18comic.vip##.thumb-overlay-albums.row >div:nth-of-type(13)
 !底端 浮窗
-jmcomic3.cc##.bot-per
+18comic.vip##.bot-per
 ! :“點我一下 , 免費去廣告”
-jmcomic3.cc##.bot-per-back
+18comic.vip##.bot-per-back
 !红叉
-jmcomic3.cc##.bot-per-times
+18comic.vip##.bot-per-times
 
 ! 左边浮窗
-jmcomic3.cc##.float_left
+18comic.vip##.float_left
 ! 顶端 “搶先體驗快速線路”
-jmcomic3.cc##.speed_btn.btn-primary.btn.center.visible-sm.visible-xs
+18comic.vip##.speed_btn.btn-primary.btn.center.visible-sm.visible-xs
 ! 页面底端 广告位
-jmcomic3.cc##div.col-xs-6.col-sm-3.col-md-3.col-lg-3
+18comic.vip##div.col-xs-6.col-sm-3.col-md-3.col-lg-3
 ! 目录页 顶端广告位
-jmcomic3.cc##.top-a2db
+18comic.vip##.top-a2db
 
 !目录页 分享栏
-jmcomic3.cc###atstbx > .at-share-btn-elements
+18comic.vip###atstbx > .at-share-btn-elements
 
 !广告图片网址
-jmcomic3.cc##[src*="/static/resources/images"]
+18comic.vip##[src*="/static/resources/images"]
 
 !目录页 目录下广告位
-jmcomic3.cc##.hidden-lg.panel-default.panel > .panel-body >.row>div:nth-last-of-type(1)
+18comic.vip##.hidden-lg.panel-default.panel > .panel-body >.row>div:nth-last-of-type(1)
