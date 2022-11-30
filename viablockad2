@@ -1,0 +1,43 @@
+! Homepage: https://raw.githubusercontent.com/Chihaya7/Database/master/viablockad
+! 2022年11月30日 20:07:58 https://18comic.vip/
+! viablockad2.0
+!顶端 底端 元素位置更改适配
+!顶端 “禁漫娘已经拜託广告只放头/尾了”
+18comic.vip##.panel-default.panel > div:nth-of-type(2)
+!底端 “禁漫娘已经拜託广告只放头/尾了”
+18comic.vip##.panel-default.panel > div:nth-last-of-type(1)
+!顶端 广告位
+18comic.vip##.panel-default.panel > div:nth-of-type(3)
+18comic.vip##.panel-default.panel > div:nth-of-type(4)
+!底端 广告位
+18comic.vip##.panel-default.panel > div:nth-last-of-type(2)
+18comic.vip##.panel-default.panel > div:nth-last-of-type(3)
+!中间 广告位
+18comic.vip##.thumb-overlay-albums.row >div:nth-of-type(11)
+!底端 浮窗
+18comic.vip##.bot-per
+! :“點我一下 , 免費去廣告”
+18comic.vip##.bot-per-back
+!红叉
+18comic.vip##.bot-per-times
+
+! 左边浮窗
+18comic.vip##.float_left
+! 顶端 “搶先體驗快速線路”
+18comic.vip##.speed_btn.btn-primary.btn.center.visible-sm.visible-xs
+! 页面底端 广告位
+18comic.vip##div.col-xs-6.col-sm-3.col-md-3.col-lg-3
+! 目录页 顶端广告位
+18comic.vip##.top-a2db
+
+!目录页 分享栏
+18comic.vip###atstbx > .at-share-btn-elements
+
+!广告图片网址
+18comic.vip##[src*="/static/resources/images"]
+
+!目录页 目录下广告位
+18comic.vip##.hidden-lg.panel-default.panel > .panel-body >.row>div:nth-last-of-type(1)
+
+!主页头帘浮窗
+18comic.vip##.center.container
