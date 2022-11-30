@@ -2,26 +2,33 @@
 ! 2022年11月30日 20:07:58 https://18comic.vip/
 ! viablockad2.0
 !顶端 底端 元素位置更改适配
-!注意:适配器(.panel .panel-default)会影响album和photo页
+!注意:适配器(.panel .panel-default)会影响album和photo页,但是photo页的body有属性
 !头部 本子名称
-18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel >.panel-heading
+!18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel >.panel-heading
+18comic.vip##.panel-default.panel >.panel-heading
 !顶端 “禁漫娘已经拜託广告只放头/尾了”
 18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel > div:nth-of-type(2)
 !底端 “禁漫娘已经拜託广告只放头/尾了”
 18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel > div:nth-last-of-type(1)
 !顶端 广告位
-18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel > div:nth-of-type(3)
-18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel >div:nth-of-type(4)
+!18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel > div:nth-of-type(3)
+!18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel >div:nth-of-type(4)
 !底端 广告位
-18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel > div:nth-last-of-type(2)
-18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel > div:nth-last-of-type(3)
+!18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel > div:nth-last-of-type(2)
+!18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel > div:nth-last-of-type(3)
+!以上四个广告位都有 .col-xs-6
+18comic.vip##.col-xs-6
 !中间 广告位
 18comic.vip##.thumb-overlay-albums.row >div:nth-of-type(11)
-!底端 浮窗
+!同上 换种写法
+18comic.vip##.thumb-overlay-albums.row >.a35c7-1_4
+!底端 版权 友链
+18comic.vip##.footer
+!底端 浮窗1
 18comic.vip##.bot-per
-! :“點我一下 , 免費去廣告”
+!底端 浮窗2:“點我一下 , 免費去廣告”
 18comic.vip##.bot-per-back
-!红叉
+!底端 浮窗3图标:红叉
 18comic.vip##.bot-per-times
 
 ! 左边浮窗
