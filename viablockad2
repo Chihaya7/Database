@@ -49,5 +49,7 @@
 !目录页 目录下广告位
 18comic.vip##.hidden-lg.panel-default.panel > .panel-body >.row>div:nth-last-of-type(1)
 
-!主页头帘浮窗,因为坐标固定不能填补空缺,取消屏蔽
+!主页头帘,因为坐标固定不能填补空缺,取消屏蔽
 !18comic.vip##.top-nav
+!主页头帘浮窗第二行,adblock声明
+18comic.vip##.center.container
