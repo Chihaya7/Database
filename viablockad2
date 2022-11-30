@@ -16,8 +16,8 @@
 !底端 广告位
 !18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel > div:nth-last-of-type(2)
 !18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel > div:nth-last-of-type(3)
-!以上四个广告位都有 .col-xs-6
-18comic.vip##.col-xs-6
+!以上四个广告位都有 .col-xs-6要加上一级选择器,否则和选流有共用
+18comic.vip##.panel-default.panel >.col-xs-6
 !中间 广告位
 18comic.vip##.thumb-overlay-albums.row >div:nth-of-type(11)
 !同上 换种写法
