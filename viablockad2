@@ -1,6 +1,8 @@
 ! Homepage: https://raw.githubusercontent.com/Chihaya7/Database/master/viablockad
 ! 2022年11月30日 20:07:58 https://18comic.vip/
 ! viablockad2.0
+! 网页里有个让移动端输入法失去焦点的js,未找到
+
 !顶端 底端 元素位置更改适配
 !注意:适配器(.panel .panel-default)会影响album和photo页,但是photo页的body有属性
 !头部 本子名称
