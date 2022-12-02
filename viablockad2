@@ -24,6 +24,9 @@
 18comic.vip##.thumb-overlay-albums.row >div:nth-of-type(11)
 !同上 换种写法
 18comic.vip##.thumb-overlay-albums.row >.a35c7-1_4
+!不知道原因 上面不能完全屏蔽，继续屏蔽MP4资源
+!18comic.vip##.video
+18comic.vip##[src*="/media/albums/"]
 !底端 版权 友链
 18comic.vip##.footer
 !底端 浮窗1
