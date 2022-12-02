@@ -26,6 +26,8 @@
 18comic.vip##.thumb-overlay-albums.row >.a35c7-1_4
 !不知道原因 上面不能完全屏蔽，继续屏蔽MP4资源
 !18comic.vip##.video
+|https://18comic.vip/media/albums/*.jpg?*
+!不知为什么这个写法会导致不加载所有图片
 !18comic.vip##[src*="/media/albums/"]
 !底端 版权 友链
 18comic.vip##.footer
