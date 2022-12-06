@@ -12,6 +12,7 @@
 18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel > div:nth-of-type(2)
 !底端 “禁漫娘已经拜託广告只放头/尾了”
 18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel > div:nth-last-of-type(1)
+
 !顶端 广告位
 !18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel > div:nth-of-type(3)
 !18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel >div:nth-of-type(4)
@@ -20,17 +21,25 @@
 !18comic.vip##body.photo_cus_body> #wrapper>.container>.row> div >.panel-default.panel > div:nth-last-of-type(3)
 !以上四个广告位都有 .col-xs-6要加上一级选择器,否则和选流有共用
 18comic.vip##.panel-default.panel >.col-xs-6
-!中间 广告位
-18comic.vip##.thumb-overlay-albums.row >div:nth-of-type(11)
+
+!中间 广告位,节点选择可能会误伤正常图片
+!18comic.vip##.thumb-overlay-albums.row >div:nth-of-type(11)
 !同上 换种写法
 18comic.vip##.thumb-overlay-albums.row >.a35c7-1_4
+
+
+! 页面底端 广告位
+18comic.vip##div.col-xs-6.col-sm-3.col-md-3.col-lg-3
+包括四个广告位.具有.a35c7-1_4属性,包括img和video
 !不知道原因 上面不能完全屏蔽，继续屏蔽MP4资源
 !18comic.vip##.video
-|https://18comic.vip/media/albums/*.jpg?*
-!不知为什么这个写法会导致不加载所有图片
+!屏蔽广告图片网址 不知为什么这个写法会导致不加载所有图片
 !18comic.vip##[src*="/media/albums/"]
+换种写法
+|https://18comic.vip/media/albums/*.jpg?*
 !底端 版权 友链
 18comic.vip##.footer
+
 !底端 浮窗1
 18comic.vip##.bot-per
 !底端 浮窗2:“點我一下 , 免費去廣告”
@@ -42,11 +51,8 @@
 18comic.vip##.float_left
 ! 顶端 “搶先體驗快速線路”
 18comic.vip##.speed_btn.btn-primary.btn.center.visible-sm.visible-xs
-! 页面底端 广告位
-18comic.vip##div.col-xs-6.col-sm-3.col-md-3.col-lg-3
 ! 目录页 顶端广告位
 18comic.vip##.top-a2db
-
 !目录页 分享栏
 18comic.vip###atstbx > .at-share-btn-elements
 
