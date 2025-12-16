@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         pic_box href index → silde
 // @namespace    https://tampermonkey.net/
-// @version      2025年12月14日 14:15:12
+// @version      3
 // @icon         https://wnacg.com/favicon.ico
 // @description  Replace "index" with "silde" in hrefs inside .pic_box
 // @match        https://www.wnacg.*
