@@ -5,7 +5,7 @@ from datetime import datetime
 
 # 配置
 SOURCE_URL = "https://wn01.link/"
-SCRIPT_FILE = "pic_box href index → silde.user.js"
+SCRIPT_FILE = "pic_box href index → sild.user.js"
 
 def fetch_latest_urls():
     """从发布页获取所有最新网址"""
