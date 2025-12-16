@@ -4,7 +4,7 @@
 // @version      2025年12月14日 14:15:12
 // @icon         https://wnacg.com/favicon.ico
 // @description  Replace "index" with "silde" in hrefs inside .pic_box
-// @match        *://*/*
+// @match        https://www.wnacg./*
 // @grant        none
 // ==/UserScript==
 
