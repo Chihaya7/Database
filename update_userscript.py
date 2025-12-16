@@ -7,8 +7,8 @@ from datetime import datetime
 SOURCE_URL = "https://wn01.link/"
 SCRIPT_FILE = "wnacg"
 
-def fetch_latest_url():
-    """从发布页获取最新网址"""
+def fetch_latest_urls():
+    """从发布页获取所有最新网址"""
     try:
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
@@ -17,43 +17,48 @@ def fetch_latest_url():
         response.encoding = 'utf-8'
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # 方法1: 查找包含"最新网址"文本的元素
-        for element in soup.find_all(['a', 'span', 'div', 'p']):
-            text = element.get_text()
-            if '最新网址' in text or '最新地址' in text:
-                # 尝试从该元素或其父元素中找到链接
-                link = element.find('a') if element.name != 'a' else element
-                if not link:
-                    link = element.find_next('a')
-                if not link:
-                    parent = element.parent
-                    if parent:
-                        link = parent.find('a')
-                
-                if link and link.get('href'):
-                    url = link.get('href')
-                    # 确保是完整的URL
-                    if url.startswith('http'):
-                        print(f"找到网址: {url}")
-                        return url
+        urls = []
         
-        # 方法2: 查找所有链接，取第一个看起来像主站的链接
+        # 方法1: 查找包含"最新地址"或"最新网址"的文本
+        text_content = soup.get_text()
+        
+        # 使用正则提取所有网址模式
+        # 匹配 www.wnXX.xx 或 www.wnacgXX.xx 格式
+        pattern = r'www\.wn(?:acg)?\d+\.\w+'
+        found_urls = re.findall(pattern, text_content)
+        
+        if found_urls:
+            urls = list(set(found_urls))  # 去重
+            print(f"找到 {len(urls)} 个网址:")
+            for url in urls:
+                print(f"  - {url}")
+            return urls
+        
+        # 方法2: 如果正则没找到，尝试查找所有链接
         for link in soup.find_all('a', href=True):
-            url = link.get('href')
-            if url.startswith('http') and 'wn' in url.lower():
-                print(f"找到网址: {url}")
-                return url
+            href = link.get('href')
+            # 提取域名
+            match = re.search(r'www\.wn(?:acg)?\d+\.\w+', href)
+            if match:
+                urls.append(match.group(0))
+        
+        if urls:
+            urls = list(set(urls))  # 去重
+            print(f"找到 {len(urls)} 个网址:")
+            for url in urls:
+                print(f"  - {url}")
+            return urls
         
         print("未能找到有效网址")
-        return None
+        return []
         
     except Exception as e:
         print(f"获取网址失败: {e}")
-        return None
+        return []
 
-def update_userscript(new_url):
-    """更新油猴脚本中的 @match 规则"""
-    if not new_url:
+def update_userscript(new_urls):
+    """在现有 @match 基础上新增网址"""
+    if not new_urls:
         print("没有新网址，跳过更新")
         return False
     
@@ -62,37 +67,56 @@ def update_userscript(new_url):
         with open(SCRIPT_FILE, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # 提取域名用于 @match
-        # 例如: https://www.example.com/path -> https://www.example.com/*
-        match = re.search(r'(https?://[^/]+)', new_url)
-        if not match:
-            print("无法解析网址")
+        # 提取现有的所有 @match 规则中的网址
+        existing_matches = re.findall(r'//\s*@match\s+(https?://[^\s]+)', content)
+        existing_urls = set()
+        
+        for match in existing_matches:
+            # 提取域名部分
+            domain_match = re.search(r'https?://([^/]+)', match)
+            if domain_match:
+                existing_urls.add(domain_match.group(1))
+        
+        print(f"现有 @match 规则: {len(existing_urls)} 个")
+        for url in sorted(existing_urls):
+            print(f"  - {url}")
+        
+        # 找出需要新增的网址
+        new_domains = set(new_urls) - existing_urls
+        
+        if not new_domains:
+            print("所有网址已存在，无需更新")
             return False
         
-        base_url = match.group(1)
-        match_pattern = f"{base_url}/*"
+        print(f"\n需要新增: {len(new_domains)} 个")
+        for url in sorted(new_domains):
+            print(f"  + {url}")
         
-        # 查找并替换 @match 行
-        # 匹配类似: // @match        https://xxx/*
-        pattern = r'(//\s*@match\s+)https?://[^\s]+'
+        # 找到最后一个 @match 的位置
+        last_match = None
+        for match in re.finditer(r'//\s*@match\s+[^\n]+', content):
+            last_match = match
         
-        if re.search(pattern, content):
-            new_content = re.sub(pattern, f'\\1{match_pattern}', content)
-            
-            # 检查是否有实际更改
-            if new_content == content:
-                print("网址未变化，无需更新")
-                return False
-            
-            # 写入文件
-            with open(SCRIPT_FILE, 'w', encoding='utf-8') as f:
-                f.write(new_content)
-            
-            print(f"成功更新 @match 为: {match_pattern}")
-            return True
-        else:
+        if not last_match:
             print("未找到 @match 规则")
             return False
+        
+        # 在最后一个 @match 后面插入新的规则
+        insert_pos = last_match.end()
+        
+        # 生成新的 @match 行
+        new_lines = []
+        for url in sorted(new_domains):
+            new_lines.append(f"\n// @match        https://{url}/*")
+        
+        new_content = content[:insert_pos] + ''.join(new_lines) + content[insert_pos:]
+        
+        # 写入文件
+        with open(SCRIPT_FILE, 'w', encoding='utf-8') as f:
+            f.write(new_content)
+        
+        print(f"\n✅ 成功新增 {len(new_domains)} 个 @match 规则")
+        return True
             
     except Exception as e:
         print(f"更新脚本失败: {e}")
@@ -100,16 +124,20 @@ def update_userscript(new_url):
 
 if __name__ == "__main__":
     print(f"开始更新 - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"源地址: {SOURCE_URL}")
+    print("-" * 50)
     
-    # 获取最新网址
-    latest_url = fetch_latest_url()
+    # 获取所有最新网址
+    latest_urls = fetch_latest_urls()
     
     # 更新脚本
-    if latest_url:
-        updated = update_userscript(latest_url)
+    if latest_urls:
+        updated = update_userscript(latest_urls)
+        print("-" * 50)
         if updated:
             print("✅ 更新成功")
         else:
             print("ℹ️ 无需更新")
     else:
+        print("-" * 50)
         print("❌ 获取网址失败")
