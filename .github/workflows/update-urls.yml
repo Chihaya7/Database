@@ -1,4 +1,4 @@
-name: Update Userscript URLs
+name: 更新油猴脚本网址
 
 on:
   schedule:
@@ -8,24 +8,23 @@ on:
 jobs:
   update-url:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout code
+      - name: 检出代码
         uses: actions/checkout@v3
         
-      - name: Setup Python
+      - name: 设置 Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
           
-      - name: Install dependencies
+      - name: 安装依赖
         run: |
           pip install requests beautifulsoup4
           
-      - name: Run update script
+      - name: 运行更新脚本
         run: python update_userscript.py
         
-      - name: Check for changes
+      - name: 检查是否有更改
         id: check_changes
         run: |
           if git diff --quiet; then
@@ -34,11 +33,11 @@ jobs:
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
           
-      - name: Commit changes
+      - name: 提交更改
         if: steps.check_changes.outputs.changed == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add wnacg
-          git commit -m "Auto update URLs $(date +'%Y-%m-%d %H:%M:%S')"
+          git commit -m "🔄 自动更新网址 - $(date +'%Y-%m-%d %H:%M:%S')"
           git push
