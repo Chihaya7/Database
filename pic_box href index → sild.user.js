@@ -6,10 +6,8 @@
 // @description  Replace "index" with "silde" in hrefs inside .pic_box
 // @match        https://www.wnacg.*
 // @match        https://www.wn04.ru/*
-// @match        https://www.wn05.ru/*
-// @match        https://www.wnacg05.cc/*
-// @updateURL https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/pic_box%20href%20index%20%E2%86%92%20sild.js
-// @updateURL https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/pic_box%20href%20index%20%E2%86%92%20sild.js
+// @updateURL https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/pic_box%20href%20index%20%E2%86%92%20sild.user.js
+// @updateURL https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/pic_box%20href%20index%20%E2%86%92%20sild.user.js
 // @grant        none
 // ==/UserScript==
 
