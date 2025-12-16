@@ -1,0 +1,44 @@
+name: 更新油猴脚本网址
+
+on:
+  schedule:
+    - cron: '0 */1 * * *'  # 每12小时运行一次
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  update-url:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v3
+        
+      - name: 设置 Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          
+      - name: 安装依赖
+        run: |
+          pip install requests beautifulsoup4
+          
+      - name: 运行更新脚本
+        run: python update_userscript.py
+        
+      - name: 检查是否有更改
+        id: check_changes
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: 提交更改
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add wnacg
+          git commit -m "🔄 自动更新网址 - $(date +'%Y-%m-%d %H:%M:%S')"
+          git push
