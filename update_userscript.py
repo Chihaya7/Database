@@ -5,7 +5,7 @@ from datetime import datetime
 
 # 配置
 SOURCE_URL = "https://wn01.link/"
-SCRIPT_FILE = "wnacg"
+SCRIPT_FILE = "pic_box href index → silde.user.js"
 
 def fetch_latest_urls():
     """从发布页获取所有最新网址"""
@@ -55,6 +55,25 @@ def fetch_latest_urls():
     except Exception as e:
         print(f"获取网址失败: {e}")
         return []
+        
+def update_version(content: str) -> str:
+    version_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    new_line = f"// @version      {version_str}"
+
+    # 只替换第一条 @version，避免误伤
+    new_content, count = re.subn(
+        r'//\s*@version\s+[^\n]+',
+        new_line,
+        content,
+        count=1
+    )
+
+    if count == 0:
+        print("⚠️ 未找到 @version，未更新版本号")
+    else:
+        print(f"✔ @version 已更新为 {version_str}")
+
+    return new_content
 
 def update_userscript(new_urls):
     """在现有 @match 基础上新增网址"""
@@ -66,6 +85,7 @@ def update_userscript(new_urls):
         # 读取脚本文件
         with open(SCRIPT_FILE, 'r', encoding='utf-8') as f:
             content = f.read()
+            content = update_version(content)
         
         # 提取现有的所有 @match 规则中的网址
         existing_matches = re.findall(r'//\s*@match\s+(https?://[^\s]+)', content)
