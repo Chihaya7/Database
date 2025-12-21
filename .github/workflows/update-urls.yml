@@ -2,7 +2,7 @@ name: 更新油猴脚本网址
 
 on:
   schedule:
-    - cron: '0 */12 * * *'
+    - cron: '0 */24 * * *'
   workflow_dispatch:
 
 jobs:
