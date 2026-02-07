@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         pic_box href index → silde
 // @namespace    https://tampermonkey.net/
-// @version      2026-01-27 02:00:49
+// @version      2026-02-07 02:10:01
 // @icon         https://wnacg.com/favicon.ico
 // @description  Replace "index" with "silde" in hrefs inside .pic_box
 // @match        https://*.wnacg.ru/*
@@ -11,6 +11,8 @@
 // @match        https://www.wnacg05.cc/*
 // @match        https://www.wn06.ru/*
 // @match        https://www.wn07.ru/*
+// @match        https://www.wn01.cfd/*
+// @match        https://www.wn01.shop/*
 // @downloadURL https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/pic_box%20href%20index%20%E2%86%92%20sild.user.js
 // @updateURL https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/pic_box%20href%20index%20%E2%86%92%20sild.user.js
 // @grant        none
