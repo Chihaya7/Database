@@ -177,6 +177,114 @@ const style = document.createElement('style');
 }
 
     }
+     /* 整个卡片 */
+#topImgCon .itemBox{
+    all: unset;
+
+    display: flex;
+    gap: 6px;
+
+    width: 100%;
+    padding: 6px;
+
+    box-sizing: border-box;
+
+    position: relative;
+
+    border-bottom: 1px solid #ddd;
+
+    align-items: flex-start;
+
+    overflow: hidden;
+
+    clear: both;
+}
+
+/* 左侧图片区域 */
+#topImgCon .itemImg{
+    width: 200px;
+    flex-shrink: 0;
+
+    height: auto;
+}
+
+/* 图片 */
+#topImgCon .itemImg img{
+    width: 100%;
+    height: auto;
+
+    display: block;
+
+    border-radius: 6px;
+}
+
+/* 右侧文字区域 */
+#topImgCon .itemTxt{
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 标题 */
+#topImgCon .itemTxt .title{
+    height: auto !important;
+
+    overflow: visible !important;
+    white-space: normal !important;
+
+    line-height: 1.5;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 三行信息 */
+
+#topImgCon .itemTxt > *{
+    position: static !important;
+    float: none !important;
+}
+
+#topImgCon .itemTxt .txtItme{
+    margin: 0 0 6px 0 !important;
+    padding: 0 !important;
+
+    font-size: 13px;
+    line-height: 1.4;
+
+    color: #666;
+}
+
+/* 排名徽章 */
+#topImgCon .number{
+    position: absolute;
+
+    top: 10px;
+    left: 10px;
+
+    z-index: 5;
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+
+    background: rgba(0,0,0,.7);
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 14px;
+    font-weight: bold;
+}
     `;
 
     document.head.appendChild(style);
