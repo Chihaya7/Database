@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         pic_box href index → silde
 // @namespace    https://tampermonkey.net/
-// @version      2026-04-23 02:48:07
+// @version      2026-05-12
 // @icon         https://wnacg.com/favicon.ico
-// @description  Replace "index" with "silde" in hrefs inside .pic_box
+// @description  Replace "index" with "slide" in hrefs + mobile layout optimize
 // @match        https://*.wnacg.ru/*
 // @match        https://*.wnacg.com/*
 // @match        https://www.wn04.ru/*
@@ -19,23 +19,22 @@
 // @match        https://www.wn03.shop/*
 // @match        https://www.wn04.cfd/*
 // @match        https://www.wn04.shop/*
-// @downloadURL https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/pic_box%20href%20index%20%E2%86%92%20sild.user.js
-// @updateURL https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/pic_box%20href%20index%20%E2%86%92%20sild.user.js
+// @downloadURL  https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/pic_box%20href%20index%20%E2%86%92%20sild.user.js
+// @updateURL    https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/pic_box%20href%20index%20%E2%86%92%20sild.user.js
+// @run-at       document-start
 // @grant        none
 // ==/UserScript==
 
 (function () {
     'use strict';
 
-    document.querySelectorAll('.pic_box a[href], .itemImg a[href], a.ImgA.autoHeight[href]').forEach(a => {
-    if (a.href.includes('index')) {
-        a.href = a.href.replace(/index/g, 'slide');
-    }
-    });
+    // =========================
+    // 提前注入 CSS
+    // =========================
 
-const style = document.createElement('style');
+    const style = document.createElement('style');
 
-    style.innerHTML = `
+    style.textContent = `
     @media screen and (max-width: 768px) {
 
         /* 整个列表 */
@@ -124,8 +123,9 @@ const style = document.createElement('style');
             text-overflow: unset !important;
 
             margin: 0 !important;
-             /* 给右上角 before 标签腾位置 */
-    padding-top: 34px !important;
+
+            /* 给右上角 before 标签腾位置 */
+            padding-top: 34px !important;
         }
 
         /* 底部信息 */
@@ -134,12 +134,25 @@ const style = document.createElement('style');
             grid-column: 2 !important;
             grid-row: 2 !important;
 
-            display: block !important;
+            /* 固定到底部 */
+            align-self: end !important;
 
-            margin-top: 8px !important;
+            display: block !important;
 
             font-size: 12px !important;
             color: #999 !important;
+
+            line-height: 1.5 !important;
+
+            white-space: normal !important;
+            word-break: break-word !important;
+
+            overflow: visible !important;
+
+            margin-top: 10px !important;
+
+            /* 提示可点击 */
+            cursor: pointer !important;
         }
 
         /* 防止原站双列 */
@@ -151,141 +164,315 @@ const style = document.createElement('style');
         #classify_container > li .autoHeight {
             height: auto !important;
         }
-
-        /* 底部信息允许换行 */
-/* 信息固定到底部 */
-#classify_container > li .info {
-
-    grid-column: 2 !important;
-    grid-row: 2 !important;
-
-    align-self: end !important;
-
-    display: block !important;
-
-    font-size: 12px !important;
-    color: #999 !important;
-
-    line-height: 1.5 !important;
-
-    white-space: normal !important;
-    word-break: break-word !important;
-
-    overflow: visible !important;
-
-    margin-top: 10px !important;
-}
-
     }
-     /* 整个卡片 */
-#topImgCon .itemBox{
-    all: unset;
 
-    display: flex;
-    gap: 6px;
+    /* =========================
+       topImgCon 样式
+    ========================= */
 
-    width: 100%;
-    padding: 6px;
+    /* 整个卡片 */
+    #topImgCon .itemBox{
 
-    box-sizing: border-box;
+        all: unset;
 
-    position: relative;
+        display: flex;
+        gap: 6px;
 
-    border-bottom: 1px solid #ddd;
+        width: 100%;
+        padding: 6px;
 
-    align-items: flex-start;
+        box-sizing: border-box;
 
-    overflow: hidden;
+        position: relative;
 
-    clear: both;
-}
+        border-bottom: 1px solid #ddd;
 
-/* 左侧图片区域 */
-#topImgCon .itemImg{
-    width: 200px;
-    flex-shrink: 0;
+        align-items: flex-start;
 
-    height: auto;
-}
+        overflow: hidden;
 
-/* 图片 */
-#topImgCon .itemImg img{
-    width: 100%;
-    height: auto;
+        clear: both;
+    }
 
-    display: block;
+    /* 左侧图片区域 */
+    #topImgCon .itemImg{
+        width: 200px;
+        flex-shrink: 0;
 
-    border-radius: 6px;
-}
+        height: auto;
+    }
 
-/* 右侧文字区域 */
-#topImgCon .itemTxt{
-    flex: 1;
+    /* 图片 */
+    #topImgCon .itemImg img{
+        width: 100%;
+        height: auto;
 
-    display: flex;
-    flex-direction: column;
+        display: block;
 
-    min-width: 0;
+        border-radius: 6px;
+    }
 
-    margin: 0 !important;
-    padding: 0 !important;
-}
+    /* 右侧文字区域 */
+    #topImgCon .itemTxt{
+        flex: 1;
 
-/* 标题 */
-#topImgCon .itemTxt .title{
-    height: auto !important;
+        display: flex;
+        flex-direction: column;
 
-    overflow: visible !important;
-    white-space: normal !important;
+        min-width: 0;
 
-    line-height: 1.5;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
 
-    margin: 0 !important;
-    padding: 0 !important;
-}
+    /* 标题 */
+    #topImgCon .itemTxt .title{
+        height: auto !important;
 
-/* 三行信息 */
+        overflow: visible !important;
+        white-space: normal !important;
 
-#topImgCon .itemTxt > *{
-    position: static !important;
-    float: none !important;
-}
+        line-height: 1.5;
 
-#topImgCon .itemTxt .txtItme{
-    margin: 0 0 6px 0 !important;
-    padding: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
 
-    font-size: 13px;
-    line-height: 1.4;
+    /* 清除原站 float */
+    #topImgCon .itemTxt > *{
+        position: static !important;
+        float: none !important;
+    }
 
-    color: #666;
-}
+    /* 信息行 */
+    #topImgCon .itemTxt .txtItme{
+        margin: 0 0 6px 0 !important;
+        padding: 0 !important;
 
-/* 排名徽章 */
-#topImgCon .number{
-    position: absolute;
+        font-size: 13px;
+        line-height: 1.4;
 
-    top: 10px;
-    left: 10px;
+        color: #666;
+    }
 
-    z-index: 5;
+    /* 排名徽章 */
+    #topImgCon .number{
+        position: absolute;
 
-    width: 28px;
-    height: 28px;
+        top: 10px;
+        left: 10px;
 
-    border-radius: 50%;
+        z-index: 5;
 
-    background: rgba(0,0,0,.7);
-    color: #fff;
+        width: 28px;
+        height: 28px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+        border-radius: 50%;
 
-    font-size: 14px;
-    font-weight: bold;
-}
+        background: rgba(0,0,0,.7);
+        color: #fff;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    /* =========================
+       Toast 提示框
+    ========================= */
+
+    .copyToast{
+
+        position: fixed;
+
+        left: 50%;
+        bottom: 80px;
+
+        transform: translateX(-50%);
+
+        background: rgba(0,0,0,.8);
+        color: #fff;
+
+        padding: 10px 18px;
+
+        border-radius: 8px;
+
+        font-size: 14px;
+
+        z-index: 999999;
+
+        opacity: 0;
+
+        transition: opacity .25s;
+    }
+
+    /* 显示状态 */
+    .copyToast.show{
+        opacity: 1;
+    }
     `;
 
-    document.head.appendChild(style);
+    document.documentElement.appendChild(style);
+
+    // =========================
+    // Toast
+    // =========================
+
+    function showToast(text) {
+
+        // 删除旧 toast
+        const old = document.querySelector('.copyToast');
+
+        if (old) old.remove();
+
+        // 创建 toast
+        const toast = document.createElement('div');
+
+        toast.className = 'copyToast';
+
+        toast.textContent = text;
+
+        document.body.appendChild(toast);
+
+        // 下一帧显示
+        requestAnimationFrame(() => {
+            toast.classList.add('show');
+        });
+
+        // 自动隐藏
+        setTimeout(() => {
+
+            toast.classList.remove('show');
+
+            setTimeout(() => {
+                toast.remove();
+            }, 250);
+
+        }, 1500);
+    }
+
+    // =========================
+    // 绑定复制点击事件
+    // =========================
+
+    function bindCopyClick(clickEl, textEl) {
+
+        // 元素不存在直接返回
+        if (!clickEl || !textEl) return;
+
+        // 鼠标小手
+        clickEl.style.cursor = 'pointer';
+
+        clickEl.addEventListener('click', async (e) => {
+
+            // 阻止默认行为
+            e.preventDefault();
+
+            // 阻止冒泡
+            e.stopPropagation();
+
+            try {
+
+                // 复制文字
+                await navigator.clipboard.writeText(
+                    textEl.textContent.trim()
+                );
+
+                showToast('复制成功');
+
+            } catch {
+
+                showToast('复制失败');
+            }
+        });
+    }
+
+    // =========================
+    // DOM 完成后执行
+    // =========================
+
+    function init() {
+
+        // =========================
+        // imgBox 处理
+        // =========================
+
+        if (document.querySelector('.imgBox')) {
+
+            document.querySelectorAll('.imgBox li').forEach(li => {
+
+                // 删除 cate-0
+                if (li.classList.contains('cate-0')) {
+                    li.remove();
+                    return;
+                }
+
+                const imgA = li.querySelector('a.ImgA.autoHeight[href]');
+                const txtA = li.querySelector('a.txtA');
+                const info = li.querySelector('.info');
+
+                // txtA 使用 imgA 链接
+                if (imgA && txtA) {
+
+                    txtA.href = imgA.href;
+                    txtA.target = '_blank';
+                }
+
+                // 点击 info 复制 txtA 标题
+                bindCopyClick(info, txtA);
+            });
+        }
+
+        // =========================
+        // topImgCon 处理
+        // =========================
+
+        if (document.getElementById('topImgCon')) {
+
+            document.querySelectorAll('#topImgCon .itemBox').forEach(box => {
+
+                const title = box.querySelector('.title');
+                const dateItem = box.querySelector('.txtItme .date');
+                if (title) {
+                    title.target = '_blank';
+                }
+
+                // 点击日期复制标题
+                bindCopyClick(dateItem, title);
+            });
+        }
+
+        // =========================
+        // href index → slide
+        // =========================
+
+        document.querySelectorAll(
+            '.pic_box a[href], .itemImg a[href], a.ImgA.autoHeight[href]'
+        ).forEach(a => {
+
+            if (a.href.includes('index')) {
+
+                a.href = a.href.replace(/index/g, 'slide');
+
+                a.target = '_blank';
+            }
+        });
+    }
+
+    // =========================
+    // 等待 DOM
+    // =========================
+
+    if (document.readyState === 'loading') {
+
+        document.addEventListener('DOMContentLoaded', init);
+
+    } else {
+
+        init();
+    }
+
 })();
