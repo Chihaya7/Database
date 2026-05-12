@@ -3,7 +3,24 @@
 // @namespace    http://tampermonkey.net/
 // @version      3.1
 // @description  漫画已读记录 + IndexedDB + 实时变灰 + 页面新增统计
+// @match        https://*.wnacg.ru/*
+// @match        https://*.wnacg.com/*
+// @match        https://www.wn04.ru/*
+// @match        https://www.wn05.ru/*
+// @match        https://www.wnacg05.cc/*
+// @match        https://www.wn06.ru/*
+// @match        https://www.wn07.ru/*
+// @match        https://www.wn01.cfd/*
+// @match        https://www.wn01.shop/*
+// @match        https://www.wn02.cfd/*
+// @match        https://www.wn02.shop/*
+// @match        https://www.wn03.cfd/*
+// @match        https://www.wn03.shop/*
 // @match        https://www.wn04.cfd/*
+// @match        https://www.wn04.shop/*
+// @downloadURL  https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/wnRead.js
+// @updateURL    https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/wnRead.js
+// @run-at       document-start
 // @grant        none
 // ==/UserScript==
 
