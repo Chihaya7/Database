@@ -388,6 +388,271 @@
     }
 
     // =========================
+// 4.1 Gist 自动恢复
+// =========================
+
+async function fetchGistData() {
+
+    const url = `https://api.github.com/gists/${GIST_ID}`;
+
+    const res = await fetch(url, {
+        headers: {
+            'Authorization': `Bearer ${GITHUB_TOKEN}`,
+            'Accept': 'application/vnd.github+json'
+        }
+    });
+
+    if (!res.ok) {
+        throw new Error('获取 Gist 失败');
+    }
+
+    const data = await res.json();
+
+    const file = data.files[GIST_FILENAME];
+
+    if (!file || !file.content) return [];
+
+    try {
+        return JSON.parse(file.content);
+    } catch (e) {
+        console.error('Gist JSON解析失败', e);
+        return [];
+    }
+}
+
+
+// =========================
+// 写入 IndexedDB（批量）
+// =========================
+
+function bulkInsertComics(list) {
+
+    return new Promise((resolve, reject) => {
+
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+
+        const store = tx.objectStore(STORE_NAME);
+
+        for (const item of list) {
+
+            // id去重写入（天然覆盖）
+            store.put(item);
+
+        }
+
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+
+    });
+
+}
+// =========================
+// 4.0 GitHub Gist 自动备份
+// =========================
+
+// GitHub Token
+const GITHUB_TOKEN = '改';
+
+// Gist ID
+const GIST_ID = '3fe6a98a0c34bbe53678cd47d8d919ac';
+
+// Gist 文件名
+const GIST_FILENAME = 'wn_read.json';
+
+// 每日同步记录
+const LAST_SYNC_KEY = 'wn_read_last_sync_date';
+
+
+// =========================
+// 获取今天日期
+// =========================
+
+function getTodayString() {
+
+    const d = new Date();
+
+    const y = d.getFullYear();
+
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+
+    const day = String(d.getDate()).padStart(2, '0');
+
+    return `${y}-${m}-${day}`;
+
+}
+
+
+// =========================
+// 今日是否已同步
+// =========================
+
+function shouldSyncToday() {
+
+    const last = localStorage.getItem(LAST_SYNC_KEY);
+
+    return last !== getTodayString();
+
+}
+
+
+// =========================
+// 标记今日已同步
+// =========================
+
+function markTodaySynced() {
+
+    localStorage.setItem(
+        LAST_SYNC_KEY,
+        getTodayString()
+    );
+
+}
+
+
+// =========================
+// 获取全部漫画数据
+// =========================
+
+function getAllComics() {
+
+    return new Promise((resolve, reject) => {
+
+        const tx = db.transaction(STORE_NAME, 'readonly');
+
+        const store = tx.objectStore(STORE_NAME);
+
+        const request = store.getAll();
+
+        request.onsuccess = function () {
+            resolve(request.result);
+        };
+
+        request.onerror = function () {
+            reject(request.error);
+        };
+
+    });
+
+}
+
+
+// =========================
+// 上传 Gist
+// =========================
+
+async function backupToGist() {
+
+    try {
+
+        console.log('开始同步 Gist');
+
+        // 获取全部数据
+        const comics = await getAllComics();
+
+        // 转 JSON
+        const content = JSON.stringify(comics);
+
+        // Gist API
+        const url =
+            `https://api.github.com/gists/${GIST_ID}`;
+
+        // PATCH 内容
+        const body = {
+
+            files: {
+
+                [GIST_FILENAME]: {
+
+                    content: content
+
+                }
+
+            }
+
+        };
+
+        // 上传
+        const res = await fetch(url, {
+
+            method: 'PATCH',
+
+            headers: {
+
+                'Authorization': `Bearer ${GITHUB_TOKEN}`,
+
+                'Accept': 'application/vnd.github+json',
+
+                'Content-Type': 'application/json'
+
+            },
+
+            body: JSON.stringify(body)
+
+        });
+
+        if (!res.ok) {
+
+            throw new Error('Gist 上传失败');
+
+        }
+
+        console.log('Gist 备份成功');
+
+        markTodaySynced();
+
+    } catch (e) {
+
+        console.error('Gist 备份失败', e);
+
+    }
+
+}
+
+
+
+// =========================
+// 自动恢复入口
+// =========================
+
+async function restoreFromGistIfNeeded() {
+
+    try {
+
+        console.log('开始检查 Gist 恢复数据');
+
+        const cloudData = await fetchGistData();
+
+        if (!cloudData || cloudData.length === 0) return;
+
+        // 当前本地数据
+        const localIds = await getAllIds();
+        const localSet = new Set(localIds);
+
+        // 过滤：只补本地没有的
+        const needInsert = cloudData.filter(item => !localSet.has(item.id));
+
+        if (needInsert.length === 0) {
+            console.log('无需恢复');
+            return;
+        }
+
+        console.log('恢复数据条数:', needInsert.length);
+
+        await bulkInsertComics(needInsert);
+
+        // 更新内存
+        needInsert.forEach(i => readSet.add(i.id));
+
+        console.log('Gist恢复完成');
+
+    } catch (e) {
+
+        console.error('恢复失败', e);
+
+    }
+
+}
+    // =========================
     // 初始化
     // =========================
 
@@ -400,6 +665,8 @@
         const ids = await getAllIds();
 
         readSet = new Set(ids);
+        // ⭐新增：先恢复云端数据
+        await restoreFromGistIfNeeded();
 
         await createHeaderStats();
 
@@ -414,6 +681,15 @@
             document.querySelector('#topImgCon .itemBox')
         ) {
             processRankingPage();
+        }
+        // =========================
+        // 初始化时触发
+        // =========================
+
+        if (shouldSyncToday()) {
+
+            backupToGist();
+
         }
 
     }
