@@ -293,7 +293,7 @@
 
     function processAlbumsPage() {
 
-        document.querySelectorAll('li.cate-1, li.cate-2, li.cate-9').forEach(li => {
+        document.querySelectorAll('#classify_container li').forEach(li => {
 
             const txtA = li.querySelector('.txtA');
 
