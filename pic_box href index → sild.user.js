@@ -56,7 +56,7 @@
 
             display: grid !important;
             grid-template-columns: 220px 1fr !important;
-            grid-template-rows: 1fr auto !important;
+            grid-template-rows: auto auto !important;
 
             column-gap: 12px !important;
 
@@ -102,37 +102,29 @@
 
         /* 标题 */
         #classify_container > li .txtA {
-
-            grid-column: 2 !important;
-            grid-row: 1 !important;
-
-            display: block !important;
-
-            width: 100% !important;
-            min-width: 0 !important;
-
-            font-size: 15px !important;
-            line-height: 1.5 !important;
-
-            color: #333 !important;
-
-            white-space: normal !important;
-            word-break: break-word !important;
-
-            overflow: visible !important;
-            text-overflow: unset !important;
-
-            margin: 0 !important;
-
-            /* 给右上角 before 标签腾位置 */
-            padding-top: 34px !important;
-        }
-
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+    color: #333 !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    margin: 0 !important;
+    padding-top: 0 !important;
+    margin-top: 34px !important;
+    height: auto !important;
+    align-self: start !important;
+}
         /* 底部信息 */
         #classify_container > li .info {
 
             grid-column: 2 !important;
-            grid-row: 2 !important;
+            grid-row: 3 !important;
 
             /* 固定到底部 */
             align-self: end !important;
@@ -149,7 +141,7 @@
 
             overflow: visible !important;
 
-            margin-top: 10px !important;
+            margin-bottom : 15px !important;
 
             /* 提示可点击 */
             cursor: pointer !important;
@@ -238,7 +230,7 @@
         padding: 0 !important;
     }
 
-    /* 清除原站 float */
+    /* 对直接子元素清楚 float */
     #topImgCon .itemTxt > *{
         position: static !important;
         float: none !important;
