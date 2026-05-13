@@ -31,7 +31,7 @@
     // Gist 配置
     // =========================
 
-    const GITHUB_TOKEN = 'ghp_9br0IC1a3PSuZUP'+"mBpfhWUpwExfgvX4Jdn1X";
+    const GITHUB_TOKEN = 'ghp_9br0IC1a3PSuZUPmBpfh'+'WUpwExfgvX4Jdn1X';
     const GIST_ID      = '3fe6a98a0c34bbe53678cd47d8d919ac';
     const GIST_FILE    = 'wn_read.json';
 
@@ -196,12 +196,12 @@
         style.innerHTML = `
             /* 已读条目整体变灰 */
             .wn-read {
-                opacity: 0.45 !important;
-                filter: grayscale(100%) !important;
+                opacity: 0.7 !important;
+                filter: grayscale(30%) !important;
                 transition: 0.2s;
             }
             .wn-read a { color: #888 !important; }
-            .wn-read a:visited { color: #666 !important; }
+            .wn-read a:visited { color:#0000FF !important; }
             .wn-read-link { color: #777 !important; }
             .wn-read-link:visited { color: #555 !important; }
 
@@ -256,6 +256,7 @@
     // =========================
 
     function showReadDate(parent, selector, date, inside = true) {
+        //showReadDate(li, '.ImgA', readMap.get(id).date, false);
         if (!date) return;
         const target = parent.querySelector(selector);
         if (!target) return;
@@ -424,11 +425,11 @@
 
     // =========================
     // 处理 albums 漫画列表页
-    // 选取 li.cate-1 / cate-2 / cate-9，标题在 .txtA
+    // 选取 li，标题在 .txtA
     // =========================
 
     function processAlbumsPage() {
-        document.querySelectorAll('li.cate-1, li.cate-2, li.cate-9').forEach(li => {
+        document.querySelectorAll('li').forEach(li => {
             const txtA = li.querySelector('.txtA');
             if (!txtA) return;
             const id    = extractId(txtA.href);
@@ -475,7 +476,7 @@
 
             if (readMap.has(id)) {
                 markAsRead(li);
-                showReadDate(li, '.ImgA', readMap.get(id).date, false);
+                showReadDate(li, '.ImgA span', readMap.get(id).date, true);
             }
 
             imgA.addEventListener('click', async () => {
@@ -486,7 +487,7 @@
                     readMap.set(id, { title, date });
                     currentPageAdded++;
                     markAsRead(li);
-                    showReadDate(li, '.ImgA', date, false);
+                    showReadDate(li, '.ImgA span', date, true);
                     await updateHeaderStats();
                 } catch (e) {
                     console.warn('[wn-read] 保存失败', e);

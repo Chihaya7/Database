@@ -36,127 +36,83 @@
 
     style.textContent = `
     @media screen and (max-width: 768px) {
+     /* 容器改为单列块布局 */
+            #classify_container { /* 选中搜索页下的漫画列表外部大容器（ul 标签） */
+                display: block !important; /* 强制将外部大容器改为普通的块级布局，破除原有的多列限制 */
+                white-space: normal !important; /* 强制允许内部文本正常换行，防止内容溢出屏幕宽度 */
 
-        /* 整个列表 */
-        #classify_container {
-            display: flex !important;
-            flex-direction: column !important;
+            } /* 结束外部大容器样式的定义 */
 
-            padding: 0 !important;
-            margin: 0 !important;
+            /* li 变成两列 grid */
+             #classify_container li { /* 选中搜索页漫画列表中的每一个具体的漫画卡片条目 */
+                display: grid !important; /* 核心：强制将每一个条目卡片开启强大的网格（Grid）二维布局模式 */
 
-            gap: 12px !important;
-        }
+                grid-template-columns: minmax(120px, 60%) 1fr !important;
+                grid-template-rows: 1fr auto !important; /* 定义网格行高：第一行标题自适应高度，第二行 info 信息行自动包裹高度 */
+                width: 100% !important; /* 强行让每个漫画条目卡片的宽度填满屏幕的 100% */
 
-        /* 每个项目 */
-        #classify_container > li {
-
-            width: 100% !important;
-            max-width: 100% !important;
-
-            display: grid !important;
-            grid-template-columns: 220px 1fr !important;
-            grid-template-rows: auto auto !important;
-
-            column-gap: 12px !important;
-
-            box-sizing: border-box !important;
-
+                box-sizing: border-box !important; /* 设置盒模型为包含内边距与边框，确保整体宽度精准计算、绝不溢出 */
+                margin: 0 0 5px 0 !important; /* 设置外边距：仅在每个条目的底部留出 10 像素的间距以作视觉隔离 */
+                position: relative !important; /* 将条目设为相对定位，保持图文层级关系的稳定 */
             padding: 10px !important;
-            margin: 0 !important;
+            border-bottom: 1px solid #eee !important; /* 強制在卡片底部加上一條 1 像素的淺灰色網頁分割線 */
+            } /* 结束条目卡片样式的定义 */
 
-            border-bottom: 1px solid #eee !important;
+            /* a 消除自身盒子，子元素直接参与 li 的 grid */
+             #classify_container li a.ImgA { /* 选中包裹了图片和标题的超链接 a 标签 */
+                display: contents !important; /* 顶级魔法：让 a 标签自身不参与排版，使其子元素（图片、标题）直接暴露给父级 Grid 容器 */
+            } /* 结束超链接标签样式的定义 */
 
-            background: #fff !important;
+            /* 图片：左列，跨两行 */
+             #classify_container li a.ImgA img { /* 选中超链接内部的原生漫画封面图片 */
+                grid-column: 1 !important; /* 指定图片放置在网格的第一列（即最左侧区域） */
+max-width: 400px !important;
+                grid-row: 1 / 3 !important; /* 指定图片纵向跨越第一行和第二行，完美实现左侧长图独立占位的效果 */
+                width: 100% !important; /* 强制图片宽度百分之百填满左侧网格列设定的 200px 宽度 */
+                height: auto !important; /* 让图片高度根据宽度等比例自适应缩放，防止画面拉伸扭曲 */
+                aspect-ratio: 3 / 4 !important; /* 无论图片宽度怎么变，始终保持 3:4 的漫画封面比例 */
+                object-fit: cover !important; /* 若图片比例与格子不符，自动进行居中裁剪填充，确保排版整齐美观 */
+            } /* 结束图片样式的定义 */
 
-            float: none !important;
-            clear: both !important;
-        }
+            #classify_container li a.ImgA span, /* 匹配 search 页面的标题 */
+#classify_container > li .txtA    /* 匹配 albums 页面的标题 */ {
 
-        /* 左侧图片 */
-        #classify_container > li .ImgA {
+    /* 网格定位相同 */
+    grid-column: 2 !important; /* 共同：两边都放置在网格的第二列（右侧文字区域） */
+    grid-row: 1 !important;    /* 共同：两边都放置在网格的第一行（右上角区域） */
 
-            width: 220px !important;
+    /* 文字排版相同 */
+    font-size: 19px !important;   /* 共同：两边字体大小统一调整为醒目的 19 像素 */
+    line-height: 1.5 !important;  /* 共同：统一设置 1.5 倍的行高，防止多行时挤压 */
+    color: #333 !important;       /* 共同：统一修改为适合在白底上阅读的深灰色 */
 
-            grid-row: 1 / span 2 !important;
-            grid-column: 1 !important;
+    /* 顶部间距相同 */
+    margin: 22px 0 0 0 !important;/* 共同：统一向下平移 22 像素。写在最后能成功覆盖上面 albums 的 margin:0 */
+    padding: 5px !important;
 
-            display: block !important;
+        overflow: visible !important; /*强制让溢出的内容保持可见 */
+    height: auto !important; /*强制高度为自动，随文字多寡自由撑开 */
 
-            margin: 0 !important;
-        }
+    position: static !important; /* search独有：彻底解除原网页自带的 absolute 绝对定位 */
+    background: transparent !important; /* search独有：彻底清除原本压在图片下方时自带的半透明黑色背景 */
+    border-radius: 0 !important; /* search独有：移除原本在压图模式下的倒角边框效果 */
 
-        /* 图片 */
-        #classify_container > li .ImgA img {
 
-            width: 100% !important;
-            height: auto !important;
-
-            display: block !important;
-
-            border-radius: 6px !important;
-
-            aspect-ratio: 3 / 4 !important;
-            object-fit: cover !important;
-        }
-
-        /* 标题 */
-        #classify_container > li .txtA {
-    grid-column: 2 !important;
-    grid-row: 1 !important;
-    display: block !important;
-    width: 100% !important;
-    min-width: 0 !important;
-    font-size: 15px !important;
-    line-height: 1.5 !important;
-    color: #333 !important;
-    white-space: normal !important;
-    word-break: break-word !important;
-    overflow: visible !important;
-    text-overflow: unset !important;
-    margin: 0 !important;
-    padding-top: 0 !important;
-    margin-top: 34px !important;
-    height: auto !important;
-    align-self: start !important;
 }
-        /* 底部信息 */
-        #classify_container > li .info {
+            /* info：右下 */
+             #classify_container li span.info { /* 选中列表中原本独立的、用来展示图片数量等信息的 info 标签 */
+                grid-column: 2 !important; /* 指定信息文本放置在网格的第二列（即右侧文字区域） */
+                grid-row: 2 !important; /* 指定信息文本放置在网格的第二行（即右下角区域） */
+                padding: 0 8px 8px !important; /* 精细调整内边距：上方不留空，左右和底部留出 8 像素维持视觉平衡 */
+                align-self: end !important; /* 强制让 info 信息文本在自己的网格内沿垂直方向向底部对齐 */
+                overflow: visible !important;
+font-size: 15px !important; /* 强制将信息文字缩小至 12 像素，与标题拉开主次层级 */
 
-            grid-column: 2 !important;
-            grid-row: 3 !important;
-
-            /* 固定到底部 */
-            align-self: end !important;
-
-            display: block !important;
-
-            font-size: 12px !important;
-            color: #999 !important;
-
-            line-height: 1.5 !important;
-
-            white-space: normal !important;
-            word-break: break-word !important;
-
-            overflow: visible !important;
-
+    line-height: 1.5 !important; /* 设置 1.5 倍的行高维持排版整齐 */
             margin-bottom : 15px !important;
-
-            /* 提示可点击 */
-            cursor: pointer !important;
-        }
-
-        /* 防止原站双列 */
-        #classify_container.col_2 > li {
-            width: 100% !important;
-        }
-
-        /* 清除原站高度 */
-        #classify_container > li .autoHeight {
-            height: auto !important;
-        }
-    }
+            cursor: pointer !important; /* 强制鼠标悬停时显示手型光标，直观提示用户此处可点击 */
+            } /* 结束 info 信息样式的定义 */
+} /* 结束信息标签样式定义 */
 
     /* =========================
        topImgCon 样式
