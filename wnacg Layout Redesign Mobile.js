@@ -19,8 +19,6 @@
 // @match        https://www.wn02.shop/*
 // @match        https://www.wn03.cfd/*
 // @match        https://www.wn03.shop/*
-// @match        https://www.wn04.cfd/*
-// @match        https://www.wn04.shop/*
 // @downloadURL  https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/wnacg Layout Redesign Mobile.user.js
 // @updateURL    https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/wnacg Layout Redesign Mobile.user.js
 // @run-at       document-start
