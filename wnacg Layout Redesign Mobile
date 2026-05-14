@@ -1,9 +1,11 @@
 // ==UserScript==
-// @name         pic_box href index → silde
+// @name         wnacg Layout Redesign Mobile
+// @name:zh-CN   绅士漫画移动端布局优化
 // @namespace    绅士漫画
-// @version      2026-05-12
+// @description:zh-CN 仅支持移动端，更新排行搜索页重做排列样式，点击图片直接打开slide阅读页，，点击日期一键复制标题。
+// @description Mobile only. Redesign page layout, open slide reader by clicking covers, copy title by clicking date.
+// @version      2026-05-15
 // @icon         https://wnacg.com/favicon.ico
-// @description  Replace "index" with "slide" in hrefs + mobile layout optimize
 // @match        https://*.wnacg.ru/*
 // @match        https://*.wnacg.com/*
 // @match        https://www.wn04.ru/*
@@ -19,8 +21,8 @@
 // @match        https://www.wn03.shop/*
 // @match        https://www.wn04.cfd/*
 // @match        https://www.wn04.shop/*
-// @downloadURL  https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/pic_box%20href%20index%20%E2%86%92%20sild.user.js
-// @updateURL    https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/pic_box%20href%20index%20%E2%86%92%20sild.user.js
+// @downloadURL  https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/wnacg Layout Redesign Mobile.user.js
+// @updateURL    https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/wnacg Layout Redesign Mobile.user.js
 // @run-at       document-start
 // @grant        none
 // ==/UserScript==
