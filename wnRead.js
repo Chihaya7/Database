@@ -1,8 +1,10 @@
 // ==UserScript==
-// @name         wn04 已读系统
-// @namespace    http://tampermonkey.net/
-// @version      5.0
-// @description  漫画已读记录 + IndexedDB + 实时变灰 + 页面新增统计 + Gist 每日同步 + 阅读日期显示 + 搜索页支持
+// @name         wnacg Reading history GIST backup
+// @name:zh-CN   绅士漫画已读记录
+// @namespace    绅士漫画
+// @version      5.1
+// @description  自动记录已读漫画 + IndexedDB + 实时变灰 + 页面新增统计 + Gist 每日同步 + 阅读日期显示 + 搜索页支持
+// @icon         https://wnacg.com/favicon.icon
 // @match        https://*.wnacg.ru/*
 // @match        https://*.wnacg.com/*
 // @match        https://www.wn04.ru/*
@@ -18,8 +20,8 @@
 // @match        https://www.wn03.shop/*
 // @match        https://www.wn04.cfd/*
 // @match        https://www.wn04.shop/*
-// @downloadURL  https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/wnRead2.js
-// @updateURL    https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/wnRead2.js
+// @downloadURL  https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/wnRead.js
+// @updateURL    https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/wnRead.js
 // @run-at       document-start
 // @grant        none
 // ==/UserScript==
@@ -31,15 +33,15 @@
     // Gist 配置
     // =========================
 
-    const GITHUB_TOKEN = 'ghp_9br0IC1a3PSuZUPmBpfh'+'WUpwExfgvX4Jdn1X';
-    const GIST_ID      = '3fe6a98a0c34bbe53678cd47d8d919ac';
-    const GIST_FILE    = 'wn_read.json';
+    const GITHUB_TOKEN = 'ghp_9br0IC1a3PSuZUPmBpfh' + 'WUpwExfgvX4Jdn1X';
+    const GIST_ID = '3fe6a98a0c34bbe53678cd47d8d919ac';
+    const GIST_FILE = 'wn_read.json';
 
     // =========================
     // 数据库配置
     // =========================
 
-    const DB_NAME    = 'WN_READ_DB';
+    const DB_NAME = 'WN_READ_DB';
     const STORE_NAME = 'read';
     const META_STORE = 'meta';
     const DB_VERSION = 2;
@@ -86,7 +88,7 @@
             const store = db.transaction(META_STORE, 'readonly').objectStore(META_STORE);
             const req = store.get(key);
             req.onsuccess = () => resolve(req.result?.value ?? null);
-            req.onerror   = () => reject(req.error);
+            req.onerror = () => reject(req.error);
         });
     }
 
@@ -99,7 +101,7 @@
             const store = db.transaction(META_STORE, 'readwrite').objectStore(META_STORE);
             const req = store.put({ key, value });
             req.onsuccess = resolve;
-            req.onerror   = reject;
+            req.onerror = reject;
         });
     }
 
@@ -113,7 +115,7 @@
             const store = db.transaction(STORE_NAME, 'readonly').objectStore(STORE_NAME);
             const req = store.getAll();
             req.onsuccess = () => resolve(req.result);
-            req.onerror   = () => reject(req.error);
+            req.onerror = () => reject(req.error);
         });
     }
 
@@ -126,7 +128,7 @@
             const store = db.transaction(STORE_NAME, 'readonly').objectStore(STORE_NAME);
             const req = store.count();
             req.onsuccess = () => resolve(req.result);
-            req.onerror   = () => reject(req.error);
+            req.onerror = () => reject(req.error);
         });
     }
 
@@ -140,7 +142,7 @@
             const store = db.transaction(STORE_NAME, 'readwrite').objectStore(STORE_NAME);
             const req = store.put({ id, title, date });
             req.onsuccess = resolve;
-            req.onerror   = reject;
+            req.onerror = reject;
         });
     }
 
@@ -151,15 +153,15 @@
 
     function saveComicsBatch(records) {
         return new Promise((resolve, reject) => {
-            const tx    = db.transaction(STORE_NAME, 'readwrite');
+            const tx = db.transaction(STORE_NAME, 'readwrite');
             const store = tx.objectStore(STORE_NAME);
             records.forEach(r => store.add({
-                id:    r.id,
+                id: r.id,
                 title: r.title || '',
-                date:  r.date  || '',
+                date: r.date || '',
             }));
             tx.oncomplete = resolve;
-            tx.onerror    = reject;
+            tx.onerror = reject;
         });
     }
 
@@ -193,7 +195,7 @@
 
     function addReadStyle() {
         const style = document.createElement('style');
-        style.innerHTML = `
+        style.innerHTML = /*css*/`
             /* 已读条目整体变灰 */
             .wn-read {
                 opacity: 0.7 !important;
@@ -261,7 +263,7 @@
         const target = parent.querySelector(selector);
         if (!target) return;
         if (inside ? target.querySelector('.wn-read-date')
-                   : target.nextElementSibling?.classList.contains('wn-read-date')) return;
+            : target.nextElementSibling?.classList.contains('wn-read-date')) return;
         const span = document.createElement('span');
         span.className = 'wn-read-date';
         span.textContent = date;
@@ -313,21 +315,21 @@
                 'Accept': 'application/vnd.github.v3+json',
             },
         })
-        .then(r => r.json())
-        .then(gist => {
-            const content = gist.files?.[GIST_FILE]?.content;
-            if (!content) return [];
-            const data = JSON.parse(content);
-            if (Array.isArray(data)) {
-                return data.map(id => ({ id: Number(id), title: '', date: '' }));
-            }
-            return Object.entries(data).map(([id, val]) => {
-                if (typeof val === 'string') {
-                    return { id: Number(id), title: val, date: '' };
+            .then(r => r.json())
+            .then(gist => {
+                const content = gist.files?.[GIST_FILE]?.content;
+                if (!content) return [];
+                const data = JSON.parse(content);
+                if (Array.isArray(data)) {
+                    return data.map(id => ({ id: Number(id), title: '', date: '' }));
                 }
-                return { id: Number(id), title: val.title || '', date: val.date || '' };
+                return Object.entries(data).map(([id, val]) => {
+                    if (typeof val === 'string') {
+                        return { id: Number(id), title: val, date: '' };
+                    }
+                    return { id: Number(id), title: val.title || '', date: val.date || '' };
+                });
             });
-        });
     }
 
     // =========================
@@ -388,10 +390,10 @@
 
         try {
             const cloudRecords = await fetchGist();
-            const cloudSet     = new Set(cloudRecords.map(r => r.id));
+            const cloudSet = new Set(cloudRecords.map(r => r.id));
 
             const localRecords = await getAllRecords();
-            const localSet     = new Set(localRecords.map(r => r.id));
+            const localSet = new Set(localRecords.map(r => r.id));
 
             const onlyInCloud = cloudRecords.filter(r => !localSet.has(r.id));
             const onlyInLocal = localRecords.filter(r => !cloudSet.has(r.id));
@@ -430,10 +432,10 @@
 
     function processAlbumsPage() {
         document.querySelectorAll('li').forEach(li => {
-            const txtA = li.querySelector('.txtA');
-            if (!txtA) return;
-            const id    = extractId(txtA.href);
-            const title = txtA.textContent.trim();
+            const imgA = li.querySelector('.ImgA');
+            if (!imgA) return;
+            const id = extractId(imgA.href);
+            const title = li.querySelector('.txtA')?.textContent.trim() || '';
             if (!id) return;
 
             if (readMap.has(id)) {
@@ -463,14 +465,14 @@
     // =========================
     // 处理搜索结果页
     // 结构与 albums 不同，没有 .txtA，标题在 .ImgA 内部的 span
-    // 日期插在 .ImgA 后面（外部兄弟节点模式）
+    // 日期插在 .ImgA span里
     // =========================
 
     function processSearchPage() {
         document.querySelectorAll('#classify_container li').forEach(li => {
             const imgA = li.querySelector('.ImgA');
             if (!imgA) return;
-            const id    = extractId(imgA.href);
+            const id = extractId(imgA.href);
             const title = imgA.querySelector('span')?.textContent.trim() || '';
             if (!id) return;
 
@@ -506,7 +508,7 @@
         document.querySelectorAll('#topImgCon .itemBox').forEach(box => {
             const titleA = box.querySelector('.itemTxt .title');
             if (!titleA) return;
-            const id    = extractId(titleA.href);
+            const id = extractId(titleA.href);
             const title = titleA.textContent.trim();
             if (!id) return;
 

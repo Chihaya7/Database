@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         pic_box href index → silde
-// @namespace    https://tampermonkey.net/
+// @namespace    绅士漫画
 // @version      2026-05-12
 // @icon         https://wnacg.com/favicon.ico
 // @description  Replace "index" with "slide" in hrefs + mobile layout optimize
@@ -26,15 +26,15 @@
 // ==/UserScript==
 
 (function () {
-    'use strict';
+    "use strict";
 
     // =========================
     // 提前注入 CSS
     // =========================
 
-    const style = document.createElement('style');
+    const style = document.createElement("style");
 
-    style.textContent = `
+    style.textContent = /* css */ `
     @media screen and (max-width: 768px) {
      /* 容器改为单列块布局 */
             #classify_container { /* 选中搜索页下的漫画列表外部大容器（ul 标签） */
@@ -82,7 +82,7 @@ max-width: 400px !important;
     grid-row: 1 !important;    /* 共同：两边都放置在网格的第一行（右上角区域） */
 
     /* 文字排版相同 */
-    font-size: 19px !important;   /* 共同：两边字体大小统一调整为醒目的 19 像素 */
+    font-size: 14px !important;   /* 共同：两边字体大小统一调整为醒目的 19 像素 */
     line-height: 1.5 !important;  /* 共同：统一设置 1.5 倍的行高，防止多行时挤压 */
     color: #333 !important;       /* 共同：统一修改为适合在白底上阅读的深灰色 */
 
@@ -205,27 +205,8 @@ font-size: 15px !important; /* 强制将信息文字缩小至 12 像素，与标
 
     /* 排名徽章 */
     #topImgCon .number{
-        position: absolute;
-
         top: 10px;
         left: 10px;
-
-        z-index: 5;
-
-        width: 28px;
-        height: 28px;
-
-        border-radius: 50%;
-
-        background: rgba(0,0,0,.7);
-        color: #fff;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-size: 14px;
-        font-weight: bold;
     }
 
     /* =========================
@@ -258,7 +239,7 @@ font-size: 15px !important; /* 强制将信息文字缩小至 12 像素，与标
     }
 
     /* 显示状态 */
-    .copyToast.show{
+    .copyToast.showTosat{
         opacity: 1;
     }
     `;
@@ -270,16 +251,15 @@ font-size: 15px !important; /* 强制将信息文字缩小至 12 像素，与标
     // =========================
 
     function showToast(text) {
-
         // 删除旧 toast
-        const old = document.querySelector('.copyToast');
+        const old = document.querySelector(".copyToast");
 
         if (old) old.remove();
 
         // 创建 toast
-        const toast = document.createElement('div');
+        const toast = document.createElement("div");
 
-        toast.className = 'copyToast';
+        toast.className = "copyToast";
 
         toast.textContent = text;
 
@@ -287,18 +267,16 @@ font-size: 15px !important; /* 强制将信息文字缩小至 12 像素，与标
 
         // 下一帧显示
         requestAnimationFrame(() => {
-            toast.classList.add('show');
+            toast.classList.add("showTosat");
         });
 
         // 自动隐藏
         setTimeout(() => {
-
-            toast.classList.remove('show');
+            toast.classList.remove("showTosat");
 
             setTimeout(() => {
                 toast.remove();
             }, 250);
-
         }, 1500);
     }
 
@@ -307,15 +285,13 @@ font-size: 15px !important; /* 强制将信息文字缩小至 12 像素，与标
     // =========================
 
     function bindCopyClick(clickEl, textEl) {
-
         // 元素不存在直接返回
         if (!clickEl || !textEl) return;
 
         // 鼠标小手
-        clickEl.style.cursor = 'pointer';
+        clickEl.style.cursor = "pointer";
 
-        clickEl.addEventListener('click', async (e) => {
-
+        clickEl.addEventListener("click", async (e) => {
             // 阻止默认行为
             e.preventDefault();
 
@@ -323,17 +299,12 @@ font-size: 15px !important; /* 强制将信息文字缩小至 12 像素，与标
             e.stopPropagation();
 
             try {
-
                 // 复制文字
-                await navigator.clipboard.writeText(
-                    textEl.textContent.trim()
-                );
+                await navigator.clipboard.writeText(textEl.textContent.trim());
 
-                showToast('复制成功');
-
+                showToast("复制成功");
             } catch {
-
-                showToast('复制失败');
+                showToast("复制失败");
             }
         });
     }
@@ -343,30 +314,28 @@ font-size: 15px !important; /* 强制将信息文字缩小至 12 像素，与标
     // =========================
 
     function init() {
-
         // =========================
-        // imgBox 处理
+        // albums页面imgBox 处理
         // =========================
 
-        if (document.querySelector('.imgBox')) {
-
-            document.querySelectorAll('.imgBox li').forEach(li => {
-
+        if (document.querySelector(".imgBox")) {
+            document.querySelectorAll(".imgBox li").forEach((li) => {
                 // 删除 cate-0
-                if (li.classList.contains('cate-0')) {
+                if (li.classList.contains("cate-0")) {
                     li.remove();
                     return;
                 }
 
-                const imgA = li.querySelector('a.ImgA.autoHeight[href]');
-                const txtA = li.querySelector('a.txtA');
-                const info = li.querySelector('.info');
+                const imgA = li.querySelector("a.ImgA.autoHeight[href]");
+                //Span是search页面包含title的元素，但无法被添加href，也就是不能像ablums那样跳转
+                const txtA = li.querySelector('.txtA') || imgA.querySelector('span');
+                const info = li.querySelector(".info");
+
 
                 // txtA 使用 imgA 链接
                 if (imgA && txtA) {
-
                     txtA.href = imgA.href;
-                    txtA.target = '_blank';
+                    txtA.target = "_blank";
                 }
 
                 // 点击 info 复制 txtA 标题
@@ -375,17 +344,15 @@ font-size: 15px !important; /* 强制将信息文字缩小至 12 像素，与标
         }
 
         // =========================
-        // topImgCon 处理
+        // Ranking页topImgCon 处理
         // =========================
 
-        if (document.getElementById('topImgCon')) {
-
-            document.querySelectorAll('#topImgCon .itemBox').forEach(box => {
-
-                const title = box.querySelector('.title');
-                const dateItem = box.querySelector('.txtItme .date');
+        if (document.getElementById("topImgCon")) {
+            document.querySelectorAll("#topImgCon .itemBox").forEach((box) => {
+                const title = box.querySelector(".title");
+                const dateItem = box.querySelector(".txtItme .date");
                 if (title) {
-                    title.target = '_blank';
+                    title.target = "_blank";
                 }
 
                 // 点击日期复制标题
@@ -397,30 +364,26 @@ font-size: 15px !important; /* 强制将信息文字缩小至 12 像素，与标
         // href index → slide
         // =========================
 
-        document.querySelectorAll(
-            '.pic_box a[href], .itemImg a[href], a.ImgA.autoHeight[href]'
-        ).forEach(a => {
+        document
+            .querySelectorAll(
+                ".pic_box a[href], .itemImg a[href], a.ImgA.autoHeight[href]",
+            )
+            .forEach((a) => {
+                if (a.href.includes("index")) {
+                    a.href = a.href.replace(/index/g, "slide");
 
-            if (a.href.includes('index')) {
-
-                a.href = a.href.replace(/index/g, 'slide');
-
-                a.target = '_blank';
-            }
-        });
+                    a.target = "_blank";
+                }
+            });
     }
 
     // =========================
     // 等待 DOM
     // =========================
 
-    if (document.readyState === 'loading') {
-
-        document.addEventListener('DOMContentLoaded', init);
-
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
     } else {
-
         init();
     }
-
 })();
