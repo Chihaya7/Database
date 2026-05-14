@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         wnacg Reading history GIST backup
-// @name:zh-CN   绅士漫画已读记录
+// @name:zh-CN   绅士漫画已读记录-移动端
 // @namespace    绅士漫画
-// @version      5.1
-// @description  自动记录已读漫画 + IndexedDB + 实时变灰 + 页面新增统计 + Gist 每日同步 + 阅读日期显示 + 搜索页支持
+// @version      5.2
+// @description  仅支持移动端，自动记录已读漫画 + IndexedDB + 实时变灰 + 页面新增统计 + Gist 每日同步 + 阅读日期显示 + 搜索页支持
 // @icon         https://wnacg.com/favicon.icon
 // @match        https://*.wnacg.ru/*
 // @match        https://*.wnacg.com/*
@@ -20,8 +20,8 @@
 // @match        https://www.wn03.shop/*
 // @match        https://www.wn04.cfd/*
 // @match        https://www.wn04.shop/*
-// @downloadURL  https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/wnRead.js
-// @updateURL    https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/wnRead.js
+// @downloadURL  https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/wnacg Reading history GIST backup.js
+// @updateURL    https://raw.githubusercontent.com/Chihaya7/Database/refs/heads/master/wnacg Reading history GIST backup.js
 // @run-at       document-start
 // @grant        none
 // ==/UserScript==
