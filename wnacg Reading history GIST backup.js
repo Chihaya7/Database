@@ -4,7 +4,7 @@
 // @namespace    绅士漫画
 // @version      5.2
 // @description  仅支持移动端，自动记录已读漫画 + IndexedDB + 实时变灰 + 页面新增统计 + Gist 每日同步 + 阅读日期显示 + 搜索页支持
-// @icon         https://wnacg.com/favicon.icon
+// @icon         https://wnacg.com/favicon.ico
 // @match        https://*.wnacg.ru/*
 // @match        https://*.wnacg.com/*
 // @match        https://www.wn04.ru/*
